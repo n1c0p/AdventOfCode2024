@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2024.API", "AdventOfCode2024.API\AdventOfCode2024.API.csproj", "{EB0C3F7E-768B-4784-85D2-EFEFC2F5AB66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2024.BusinessLayer", "AdventOfCode2024.BusinessLayer\AdventOfCode2024.BusinessLayer.csproj", "{52969AF5-E3F5-4DED-BAA4-15284CCAF8AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2024.SharedLayer", "AdventOfCode2024.SharedLayer\AdventOfCode2024.SharedLayer.csproj", "{84DECA5A-015F-44B1-B46B-CC0B89FCD216}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB0C3F7E-768B-4784-85D2-EFEFC2F5AB66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0C3F7E-768B-4784-85D2-EFEFC2F5AB66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0C3F7E-768B-4784-85D2-EFEFC2F5AB66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0C3F7E-768B-4784-85D2-EFEFC2F5AB66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52969AF5-E3F5-4DED-BAA4-15284CCAF8AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52969AF5-E3F5-4DED-BAA4-15284CCAF8AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52969AF5-E3F5-4DED-BAA4-15284CCAF8AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52969AF5-E3F5-4DED-BAA4-15284CCAF8AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84DECA5A-015F-44B1-B46B-CC0B89FCD216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84DECA5A-015F-44B1-B46B-CC0B89FCD216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84DECA5A-015F-44B1-B46B-CC0B89FCD216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84DECA5A-015F-44B1-B46B-CC0B89FCD216}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
