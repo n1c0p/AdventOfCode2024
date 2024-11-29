@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OperationResultTools" Version="1.0.29" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode2024.SharedLayer\AdventOfCode2024.SharedLayer.csproj" />
+  </ItemGroup>
+
 </Project>
