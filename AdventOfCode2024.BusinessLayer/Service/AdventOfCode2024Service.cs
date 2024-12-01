@@ -2035,7 +2035,6 @@ public class AdventOfCode2024Service : IAdventOfCode2024Service
         var sumLocation = 0;
         for (int i = 0; i < firstIdsLocationListOrderByIdLocation.Count(); i++)
         {
-
             var itemFirstLocation = firstIdsLocationListOrderByIdLocation[i];
             var itemSecondLocation = secondIdsLocationListOrderByIdLocation[i];
             var different = Math.Abs(itemFirstLocation - itemSecondLocation);
@@ -2052,7 +2051,6 @@ public class AdventOfCode2024Service : IAdventOfCode2024Service
         var sumSimilarityScore= 0;
         for (int i = 0; i < _firstIdsLocationList.Count(); i++)
         {
-
             var itemFirstLocation = _firstIdsLocationList[i];
             var findingSimilarityScore = _secondIdsLocationList.Count(x => x.Equals(itemFirstLocation));
 
