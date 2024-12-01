@@ -1,6 +1,4 @@
 using AdventOfCode2024.API.Extensions;
-using AdventOfCode2024.BusinessLayer.Interface;
-using AdventOfCode2024.BusinessLayer.Service;
 using Microsoft.OpenApi.Models;
 using OperationResults.AspNetCore;
 using System.Reflection;
@@ -48,11 +46,9 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 
