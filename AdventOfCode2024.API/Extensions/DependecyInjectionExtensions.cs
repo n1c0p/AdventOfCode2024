@@ -1,11 +1,10 @@
-﻿using AdventOfCode2024.BusinessLayer.Interface;
-using AdventOfCode2024.BusinessLayer.Service;
+﻿using AdventOfCode2024.BusinessLayer.Service;
 
 namespace AdventOfCode2024.API.Extensions;
 
-public static class DependecyInjection
+public static class DependecyInjectionExtensions
 {
-    public static IServiceCollection InjectService(this IServiceCollection services)
+    public static IServiceCollection DependecyInjection(this IServiceCollection services)
     {
         services.Scan(scan => scan
             .FromAssemblyOf<IAdventOfCode2024Service>()

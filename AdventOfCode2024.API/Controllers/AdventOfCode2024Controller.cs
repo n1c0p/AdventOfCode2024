@@ -1,8 +1,3 @@
-using AdventOfCode2024.BusinessLayer.Interface;
-using AdventOfCode2024.SharedLayer.Dto;
-using Microsoft.AspNetCore.Mvc;
-using OperationResults.AspNetCore;
-
 namespace AdventOfCode2024.API.Controllers;
 
 [ApiController]

@@ -1,8 +1,4 @@
-﻿using AdventOfCode2024.BusinessLayer.Interface;
-using AdventOfCode2024.SharedLayer.Dto;
-using OperationResults;
-
-namespace AdventOfCode2024.BusinessLayer.Service;
+﻿namespace AdventOfCode2024.BusinessLayer.Service;
 
 public class AdventOfCode2024Service : IAdventOfCode2024Service
 {
