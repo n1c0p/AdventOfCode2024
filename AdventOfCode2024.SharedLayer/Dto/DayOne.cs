@@ -1,5 +1,4 @@
 ﻿namespace AdventOfCode2024.SharedLayer.Dto;
-+
 
 public class DayOne
 {
