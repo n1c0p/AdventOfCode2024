@@ -2038,7 +2038,7 @@ public class AdventOfCode2024Service : IAdventOfCode2024Service
 
             var itemFirstLocation = firstIdsLocationListOrderByIdLocation[i];
             var itemSecondLocation = secondIdsLocationListOrderByIdLocation[i];
-            var different = itemFirstLocation >= itemSecondLocation ? itemFirstLocation - itemSecondLocation : itemSecondLocation - itemFirstLocation;
+            var different = Math.Abs(itemFirstLocation - itemSecondLocation);
             sumLocation += different;
         }
 
