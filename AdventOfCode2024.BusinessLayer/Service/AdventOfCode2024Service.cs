@@ -2015,15 +2015,15 @@ public class AdventOfCode2024Service : IAdventOfCode2024Service
         11171
     };
 
-    public async Task<Result<DayOne>> DayOneAsync()
+    public async Task<Result<GenericResponse<int, int>>> DayOneAsync()
     {
         var partOne = await PartOne();
         var partTwo = await PartTwo();
 
-        var result = new DayOne
+        var result = new GenericResponse<int,int>
         {
-            SumLocation =  partOne,
-            SumSimilarityScore = partTwo
+            PartOne =  partOne,
+            PartTwo = partTwo
         };
 
         return result;
