@@ -1,6 +1,4 @@
-﻿using AdventOfCode2024.SharedLayer.Input;
-
-namespace AdventOfCode2024.BusinessLayer.Service;
+﻿namespace AdventOfCode2024.BusinessLayer.Service;
 
 public class DayTwoService : IDayTwoService
 {   
