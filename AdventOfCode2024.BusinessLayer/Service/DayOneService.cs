@@ -1,9 +1,8 @@
 ﻿namespace AdventOfCode2024.BusinessLayer.Service;
 
-public class AdventOfCode2024Service : IAdventOfCode2024Service
+public class DayOneService : IDayOneService
 {
-
-    private static readonly List<int> _firstIdsLocationList = new() 
+    private static readonly List<int> _firstIdsLocationList = new()
     {
         35360,
         84283,
@@ -2011,21 +2010,25 @@ public class AdventOfCode2024Service : IAdventOfCode2024Service
         11171
     };
 
+
+    #region Public method
     public async Task<Result<GenericResponse<int, int>>> DayOneAsync()
     {
-        var partOne = await PartOne();
-        var partTwo = await PartTwo();
+        var partOne = await PartOneAsync();
+        var partTwo = await PartTwoAsync();
 
-        var result = new GenericResponse<int,int>
+        var result = new GenericResponse<int, int>
         {
-            PartOne =  partOne,
+            PartOne = partOne,
             PartTwo = partTwo
         };
 
         return result;
     }
+    #endregion
 
-    private async Task<int> PartOne()
+    #region Private method
+    public async Task<int> PartOneAsync()
     {
         await Task.CompletedTask;
 
@@ -2044,11 +2047,11 @@ public class AdventOfCode2024Service : IAdventOfCode2024Service
         return sumLocation;
     }
 
-    private async Task<int> PartTwo()
+    public async Task<int> PartTwoAsync()
     {
         await Task.CompletedTask;
 
-        var sumSimilarityScore= 0;
+        var sumSimilarityScore = 0;
         for (int i = 0; i < _firstIdsLocationList.Count(); i++)
         {
             var itemFirstLocation = _firstIdsLocationList[i];
@@ -2060,4 +2063,5 @@ public class AdventOfCode2024Service : IAdventOfCode2024Service
 
         return sumSimilarityScore;
     }
+    #endregion
 }
