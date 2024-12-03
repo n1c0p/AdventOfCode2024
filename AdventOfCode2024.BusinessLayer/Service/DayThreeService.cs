@@ -21,8 +21,9 @@ public class DayThreeService : IDayThreeService
 
     public async Task<int> PartOneAsync()
     {
-        var stringPattern = @"[mul]{3,3}[(][\d]*[,][\d]*[)]";
-        var numberPattern = @"[\d+]{1,9999}";
+        await Task.CompletedTask;
+        var stringPattern = @"mul\(\d+,\d+\)";
+        var numberPattern = @"[\d+]{1,}";
 
         var input = DayThreeInput.input;
 
@@ -44,6 +45,7 @@ public class DayThreeService : IDayThreeService
 
     public async Task<int> PartTwoAsync()
     {
+        await Task.CompletedTask;
         var pattern = @"mul\((\d+),(\d+)\)|do\(\)|don't\(\)";
 
         var input = DayThreeInput.input_partTwo;
