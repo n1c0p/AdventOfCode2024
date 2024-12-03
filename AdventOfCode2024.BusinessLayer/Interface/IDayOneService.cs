@@ -1,8 +1,6 @@
 ﻿namespace AdventOfCode2024.BusinessLayer.Interface;
 
-public interface IDayOneService
+public interface IDayOneService : ICommonService
 {
     Task<Result<GenericResponse<int, int>>> DayOneAsync();
-    Task<int> PartOneAsync();
-    Task<int> PartTwoAsync();
 }
