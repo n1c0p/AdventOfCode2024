@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AdventOfCode2024.BusinessLayer.Service;
 
@@ -34,6 +35,8 @@ MAMMMXMMMM
 MXMXAXMASX";
 
         List<string> matrixString = input.Replace("\r","").Split("\n").ToList();
+        //List<string> matrixString = DayFourInput.input.Replace("\r", "").Split("\n").ToList();
+
         Regex regex = new Regex(@"\\*");
 
         List<List<string>> matrix = new();
@@ -105,7 +108,7 @@ MXMXAXMASX";
             verticalCounter += matched.Count();
 
             Regex regexPatternResultReverse = new Regex(regexPatternReverseVertical);
-            MatchCollection matchedReverse = regexPatternResult.Matches(stringComparision);
+            MatchCollection matchedReverse = regexPatternResultReverse.Matches(stringComparision);
 
             verticalReverseCounter += matchedReverse.Count();
 
@@ -117,51 +120,104 @@ MXMXAXMASX";
 
     private async Task<int> MatchStringOblique(List<List<string>> matrix, string patternVertical, string patternReverseVertical)
     {
-        await Task.CompletedTask;
         var regexPatternVertical = $@"{patternVertical}";
         var regexPatternReverseVertical = $@"{patternReverseVertical}";
 
-        var verticalCounter = 0;
-        var verticalReverseCounter = 0;
-
-        
-
         // sx -> dx
+        
+        var counter = await Processing(matrix, patternVertical, regexPatternVertical, regexPatternReverseVertical);
+
+        // dx -> sx
+        matrix.ForEach(x =>
+        {
+            x.Reverse();
+        });
+
+        var reverseCounter = await Processing(matrix, patternVertical, regexPatternVertical, regexPatternReverseVertical);
+
+        var totalCounter = counter + reverseCounter;
+        return totalCounter;
+    }
+
+    private async Task<int> Processing(List<List<string>> matrix, string patternVertical, string regexPatternVertical, string regexPatternReverseVertical)
+    {
+        await Task.CompletedTask;
+
+        var counter = 0;
+        var reverseCounter = 0;
+        var inc = 0;
+
+
+        // bottom
         for (int orizontalIndex = 0; orizontalIndex < matrix.Count(); orizontalIndex++)
         {
             var stringComparision = string.Empty;
+            var stringComparisionTop = string.Empty;
 
             var matrixCount = matrix[orizontalIndex].Count();
 
-            for (int verticalIndex = orizontalIndex; verticalIndex < matrixCount; verticalIndex++)
+            for (int verticalIndex = 0; verticalIndex < matrixCount; verticalIndex++)
             {
-                if ((matrixCount - patternVertical.Length) >= orizontalIndex)
+                if ((matrixCount - inc) > verticalIndex)
                 {
-                    stringComparision += $"{matrix[orizontalIndex][verticalIndex]}";
-                }
-                else
-                {
-                    break;
+                    stringComparision += $"{matrix[orizontalIndex + verticalIndex][verticalIndex]}";
                 }
             }
+
+            if (stringComparision.Length < patternVertical.Length)
+            {
+                break;
+            }
+
+            inc++;
 
             Regex regexPatternResult = new Regex(regexPatternVertical);
             MatchCollection matched = regexPatternResult.Matches(stringComparision);
 
-            verticalCounter += matched.Count();
+            counter += matched.Count();
 
             Regex regexPatternResultReverse = new Regex(regexPatternReverseVertical);
-            MatchCollection matchedReverse = regexPatternResult.Matches(stringComparision);
+            MatchCollection matchedReverse = regexPatternResultReverse.Matches(stringComparision);
 
-            verticalReverseCounter += matchedReverse.Count();
+            reverseCounter += matchedReverse.Count();
         }
 
-        
+        // top
+        inc = 0;
+        for (int orizontalIndex = 0; orizontalIndex < matrix.Count(); orizontalIndex++)
+        {
+            var stringComparision = string.Empty;
+            var stringComparisionTop = string.Empty;
 
+            var matrixCount = matrix[orizontalIndex].Count();
+            
 
+            for (int verticalIndex = 1; verticalIndex < matrixCount; verticalIndex++)
+            {
+                if ((matrixCount - inc) > verticalIndex)
+                {
+                    stringComparision += $"{matrix[orizontalIndex][verticalIndex]}";
+                    orizontalIndex++;
+                }
+            }
 
-        var totalCounter = verticalCounter + verticalReverseCounter;
-        return totalCounter;
+            if (stringComparision.Length < patternVertical.Length)
+            {
+                break;
+            }
+
+            inc++;
+
+            Regex regexPatternResult = new Regex(regexPatternVertical);
+            MatchCollection matched = regexPatternResult.Matches(stringComparision);
+
+            counter += matched.Count();
+
+            Regex regexPatternResultReverse = new Regex(regexPatternReverseVertical);
+            MatchCollection matchedReverse = regexPatternResultReverse.Matches(stringComparision);
+
+            reverseCounter += matchedReverse.Count();
+        }
+        return counter + reverseCounter;
     }
-
 }
