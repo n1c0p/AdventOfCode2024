@@ -2,5 +2,5 @@
 
 public interface IDayOneService : ICommonService
 {
-    Task<Result<GenericResponse<int, int>>> DayOneAsync();
+    Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync();
 }

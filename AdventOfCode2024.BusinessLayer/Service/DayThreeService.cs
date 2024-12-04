@@ -1,11 +1,9 @@
-﻿
-using static System.Net.Mime.MediaTypeNames;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace AdventOfCode2024.BusinessLayer.Service;
 public class DayThreeService : IDayThreeService
 {
-    public async Task<Result<GenericResponse<int, int>>> DayThreeAsync()
+    public async Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync()
     {
         var partOne = await PartOneAsync();
         var partTwo = await PartTwoAsync();

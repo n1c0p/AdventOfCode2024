@@ -2,7 +2,7 @@
 
 public class DayTwoService : IDayTwoService
 {   
-    public async Task<Result<GenericResponse<int, int>>> DayTwoAsync()
+    public async Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync()
     {
         var partOne = await PartOneAsync();
         var partTwo = await PartTwoAsync();

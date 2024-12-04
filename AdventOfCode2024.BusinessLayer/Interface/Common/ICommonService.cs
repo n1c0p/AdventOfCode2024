@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2024.BusinessLayer.Interface.Common;
+﻿namespace AdventOfCode2024.BusinessLayer.Interface;
 
 public interface ICommonService
 {

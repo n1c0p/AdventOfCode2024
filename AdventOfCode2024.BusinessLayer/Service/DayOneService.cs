@@ -3,7 +3,7 @@
 public class DayOneService : IDayOneService
 {
     #region Public method
-    public async Task<Result<GenericResponse<int, int>>> DayOneAsync()
+    public async Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync()
     {
         var partOne = await PartOneAsync();
         var partTwo = await PartTwoAsync();
