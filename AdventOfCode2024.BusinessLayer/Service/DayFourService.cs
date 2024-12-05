@@ -7,7 +7,8 @@ public class DayFourService : IDayFourService
 
 {
     public async Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync()
-    {
+    {   
+
         var partOne = await PartOneAsync();
         var partTwo = await PartTwoAsync();
 
@@ -23,7 +24,61 @@ public class DayFourService : IDayFourService
     {
         await Task.CompletedTask;
 
-        var input = @"MMMSXXMASM
+        string[] lines = DayFourInput.input.Replace("\r", "").Split("\n").ToArray();
+
+        // Creiamo la griglia
+        char[,] grid = new char[lines.Length, lines[0].Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            for (int j = 0; j < lines[i].Length; j++)
+            {
+                grid[i, j] = lines[i][j];
+            }
+        }
+
+        // Step 2: Definisci la parola da cercare
+        string word = "XMAS";
+
+        // Step 3: Conta tutte le occorrenze della parola nella griglia
+        int count = 0;
+
+        // Definizione delle direzioni: [deltaX, deltaY]
+        int[][] directions = new int[][]
+        {
+            new int[] { 0, 1 },    // Destra
+            new int[] { 0, -1 },   // Sinistra
+            new int[] { 1, 0 },    // In basso
+            new int[] { -1, 0 },   // In alto
+            new int[] { 1, 1 },    // Diagonale basso destra
+            new int[] { 1, -1 },   // Diagonale basso sinistra
+            new int[] { -1, 1 },   // Diagonale alto destra
+            new int[] { -1, -1 }   // Diagonale alto sinistra
+        };
+
+        // Step 4: Scorriamo ogni cella della griglia
+        for (int i = 0; i < grid.GetLength(0); i++)
+        {
+            for (int j = 0; j < grid.GetLength(1); j++)
+            {
+                // Per ogni cella, verifica se possiamo trovare la parola in una delle 8 direzioni
+                foreach (var direction in directions)
+                {
+                    if (IsWordPresent(grid, i, j, word, direction[0], direction[1]))
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public async Task<int> PartTwoAsync()
+    {
+        await Task.CompletedTask;
+
+        string input = @"MMMSXXMASM
 MSAMXMSMSA
 AMXSXMAAMM
 MSAMASMSMX
@@ -34,190 +89,106 @@ SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX";
 
-        List<string> matrixString = input.Replace("\r","").Split("\n").ToList();
-        //List<string> matrixString = DayFourInput.input.Replace("\r", "").Split("\n").ToList();
 
-        Regex regex = new Regex(@"\\*");
+        string[] lines = input.Replace("\r", "").Split("\n").ToArray();
+        //string[] lines = DayFourInput.input.Replace("\r", "").Split("\n").ToArray();
 
-        List<List<string>> matrix = new();
-        
-
-        var matchString = "XMAS";
-        var reverseMatchString = "SAMX";
-        var counterMatching = 0;
-        var counterReverseMatching = 0;
-        foreach (var item in matrixString)
-        {   
-            string[] splitStringItemInput = regex.Split(item);
-            var arraySplitStringItemInput = splitStringItemInput.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            matrix.AddRange(arraySplitStringItemInput);
-
-            counterMatching += await MatchStringOrizzontal(item, matchString);
-            counterReverseMatching += await MatchStringOrizzontal(item, reverseMatchString);
-
-        }
-
-        var countVertical = await MatchStringVertical(matrix, matchString, reverseMatchString);
-        var countOblique = await MatchStringOblique(matrix, matchString, reverseMatchString);
-
-        var totalCount = counterMatching + counterReverseMatching + countVertical + countOblique;
-
-
-        return totalCount;
-    }
-
-    public async Task<int> PartTwoAsync()
-    {
-        await Task.CompletedTask;
-        return 1;
-    }
-
-    private async Task<int> MatchStringOrizzontal(string lineFromMatrix, string pattern)
-    {
-        await Task.CompletedTask;
-        var regexPattern = $@"{pattern}";
-
-        Regex regexPatternResult = new Regex(regexPattern);
-        MatchCollection matched = regexPatternResult.Matches(lineFromMatrix);
-
-        var counter = matched.Count();
-
-        return counter;
-    }
-
-    private async Task<int> MatchStringVertical(List<List<string>> matrix, string patternVertical, string patternReverseVertical)
-    {
-        await Task.CompletedTask;
-        var regexPatternVertical = $@"{patternVertical}";
-        var regexPatternReverseVertical = $@"{patternReverseVertical}";
-
-        var verticalCounter = 0;
-        var verticalReverseCounter = 0;
-
-        for (int orizontalIndex = 0; orizontalIndex < matrix.Count(); orizontalIndex++)
+        // Creiamo la griglia
+        char[,] grid = new char[lines.Length, lines[0].Length];
+        for (int i = 0; i < lines.Length; i++)
         {
-            var stringComparision = string.Empty;
-            for (int verticalIndex = 0; verticalIndex < matrix.Count(); verticalIndex++)
+            for (int j = 0; j < lines[i].Length; j++)
             {
-                stringComparision += $"{matrix[orizontalIndex][verticalIndex]}";
+                grid[i, j] = lines[i][j];
             }
-
-            Regex regexPatternResult = new Regex(regexPatternVertical);
-            MatchCollection matched = regexPatternResult.Matches(stringComparision);
-
-            verticalCounter += matched.Count();
-
-            Regex regexPatternResultReverse = new Regex(regexPatternReverseVertical);
-            MatchCollection matchedReverse = regexPatternResultReverse.Matches(stringComparision);
-
-            verticalReverseCounter += matchedReverse.Count();
-
         }
 
-        var totalCounter = verticalCounter + verticalReverseCounter;
-        return totalCounter;
-    }
+        // Step 2: Definisci la parola da cercare
+        string wordMas = "MAS";
+        string wordSam = "SAM";
 
-    private async Task<int> MatchStringOblique(List<List<string>> matrix, string patternVertical, string patternReverseVertical)
-    {
-        var regexPatternVertical = $@"{patternVertical}";
-        var regexPatternReverseVertical = $@"{patternReverseVertical}";
+        // Step 3: Conta tutte le occorrenze della parola nella griglia
+        int count = 0;
 
-        // sx -> dx
-        
-        var counter = await Processing(matrix, patternVertical, regexPatternVertical, regexPatternReverseVertical);
-
-        // dx -> sx
-        matrix.ForEach(x =>
+        // Definizione delle direzioni: [deltaX, deltaY]
+        int[][] directionsASBD = new int[][]
         {
-            x.Reverse();
-        });
+            new int[] { -1, -1 },   // Diagonale alto sinistra
+            new int[] { 1, 1 }    // Diagonale basso destra
+        };
 
-        var reverseCounter = await Processing(matrix, patternVertical, regexPatternVertical, regexPatternReverseVertical);
-
-        var totalCounter = counter + reverseCounter;
-        return totalCounter;
-    }
-
-    private async Task<int> Processing(List<List<string>> matrix, string patternVertical, string regexPatternVertical, string regexPatternReverseVertical)
-    {
-        await Task.CompletedTask;
-
-        var counter = 0;
-        var reverseCounter = 0;
-        var inc = 0;
-
-
-        // bottom
-        for (int orizontalIndex = 0; orizontalIndex < matrix.Count(); orizontalIndex++)
+        int[][] directionsADBS = new int[][]
         {
-            var stringComparision = string.Empty;
-            var stringComparisionTop = string.Empty;
+            new int[] { -1, 1 },   // Diagonale alto destra
+            new int[] { 1, -1 }   // Diagonale basso sinistra
+        };
 
-            var matrixCount = matrix[orizontalIndex].Count();
+        // Step 4: Scorriamo ogni cella della griglia
+        for (int i = 0; i < grid.GetLength(0); i++)
+        {
 
-            for (int verticalIndex = 0; verticalIndex < matrixCount; verticalIndex++)
+            var checkMAS = false;
+            var checkSAM = false;
+
+            for (int j = 0; j < grid.GetLength(1); j++)
             {
-                if ((matrixCount - inc) > verticalIndex)
+                char carattere = grid[i,j];
+
+                if (carattere == 'A')
                 {
-                    stringComparision += $"{matrix[orizontalIndex + verticalIndex][verticalIndex]}";
+                    //Per ogni cella, verifica se possiamo trovare la parola in una delle 8 direzioni
+                    foreach (var direction in directionsASBD)
+                    {
+                        if (IsWordPresent(grid, i, j, wordMas, direction[0], direction[1]))
+                        {
+                            checkMAS = true;
+                        }
+                    }
+
+                    foreach (var direction in directionsADBS)
+                    {
+                        if (IsWordPresent(grid, i, j, wordMas, direction[0], direction[1]))
+                        {
+                            checkSAM = true;
+                        }
+                    }
+
+                    if (checkMAS && checkSAM)
+                    {
+                        count++;
+                    }
                 }
             }
-
-            if (stringComparision.Length < patternVertical.Length)
-            {
-                break;
-            }
-
-            inc++;
-
-            Regex regexPatternResult = new Regex(regexPatternVertical);
-            MatchCollection matched = regexPatternResult.Matches(stringComparision);
-
-            counter += matched.Count();
-
-            Regex regexPatternResultReverse = new Regex(regexPatternReverseVertical);
-            MatchCollection matchedReverse = regexPatternResultReverse.Matches(stringComparision);
-
-            reverseCounter += matchedReverse.Count();
         }
 
-        // top
-        inc = 0;
-        for (int orizontalIndex = 0; orizontalIndex < matrix.Count(); orizontalIndex++)
-        {
-            var stringComparision = string.Empty;
-            var stringComparisionTop = string.Empty;
-
-            var matrixCount = matrix[orizontalIndex].Count();
-            
-
-            for (int verticalIndex = 1; verticalIndex < matrixCount; verticalIndex++)
-            {
-                if ((matrixCount - inc) > verticalIndex)
-                {
-                    stringComparision += $"{matrix[orizontalIndex][verticalIndex]}";
-                    orizontalIndex++;
-                }
-            }
-
-            if (stringComparision.Length < patternVertical.Length)
-            {
-                break;
-            }
-
-            inc++;
-
-            Regex regexPatternResult = new Regex(regexPatternVertical);
-            MatchCollection matched = regexPatternResult.Matches(stringComparision);
-
-            counter += matched.Count();
-
-            Regex regexPatternResultReverse = new Regex(regexPatternReverseVertical);
-            MatchCollection matchedReverse = regexPatternResultReverse.Matches(stringComparision);
-
-            reverseCounter += matchedReverse.Count();
-        }
-        return counter + reverseCounter;
+        return count;
     }
+
+    static bool IsWordPresent(char[,] grid, int startX, int startY, string word, int deltaX, int deltaY)
+    {
+        int x = startX;
+        int y = startY;
+
+        for (int k = 0; k < word.Length; k++)
+        {
+            // Se siamo fuori dai limiti della griglia, ritorna false
+            if (x < 0 || x >= grid.GetLength(0) || y < 0 || y >= grid.GetLength(1))
+            {
+                return false;
+            }
+
+            // Se il carattere corrente non corrisponde, ritorna false
+            if (grid[x, y] != word[k])
+            {
+                return false;
+            }
+
+            // Aggiorna la posizione secondo la direzione
+            x += deltaX;
+            y += deltaY;
+        }
+
+        return true;
+    }
+
 }
