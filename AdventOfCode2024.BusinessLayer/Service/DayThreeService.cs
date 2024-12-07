@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace AdventOfCode2024.BusinessLayer.Service;
+﻿namespace AdventOfCode2024.BusinessLayer.Service;
 public class DayThreeService : IDayThreeService
 {
     public async Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync()

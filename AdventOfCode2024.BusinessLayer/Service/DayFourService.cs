@@ -1,5 +1,4 @@
 ﻿namespace AdventOfCode2024.BusinessLayer.Service;
-
 public class DayFourService : IDayFourService
 
 {

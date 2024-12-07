@@ -2,7 +2,6 @@
 
 public class DayOneService : IDayOneService
 {
-    #region Public method
     public async Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync()
     {
         var partOne = await PartOneAsync();
@@ -16,9 +15,7 @@ public class DayOneService : IDayOneService
 
         return result;
     }
-    #endregion
-
-    #region Private method
+    
     public async Task<int> PartOneAsync()
     {
         await Task.CompletedTask;
@@ -57,5 +54,4 @@ public class DayOneService : IDayOneService
 
         return sumSimilarityScore;
     }
-    #endregion
 }

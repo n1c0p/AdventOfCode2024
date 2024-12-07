@@ -1,5 +1,4 @@
-﻿
-namespace AdventOfCode2024.BusinessLayer.Service;
+﻿namespace AdventOfCode2024.BusinessLayer.Service;
 public class DayFiveService : IDayFiveService
 {
     public async Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync()
