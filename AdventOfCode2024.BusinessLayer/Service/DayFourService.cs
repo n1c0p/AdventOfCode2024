@@ -1,7 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace AdventOfCode2024.BusinessLayer.Service;
+﻿namespace AdventOfCode2024.BusinessLayer.Service;
 
 public class DayFourService : IDayFourService
 
