@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode2024.BusinessLayer.Interface;
 
-public interface ICommonService
+public interface ICommonService<T1,T2>
 {
-    Task<int> PartOneAsync();
-    Task<int> PartTwoAsync();
+    Task<T1> PartOneAsync();
+    Task<T2> PartTwoAsync();
 }
