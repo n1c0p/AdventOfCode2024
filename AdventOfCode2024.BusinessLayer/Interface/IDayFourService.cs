@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode2024.BusinessLayer.Interface;
 
-public interface IDayTwoService : ICommonService
+public interface IDayFourService : ICommonService
 {
     Task<Result<GenericResponse<int, int>>> SolutionPuzzleAsync();
 }
