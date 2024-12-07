@@ -340,6 +340,7 @@ public class AdventOfCode2024Controller : ControllerBase
     /// 
     /// Flip the word search from the instructions back over to the word search side and try again. How many times does an X-MAS appear?
     /// 
+    /// Your puzzle answer was 1990.
     /// </remarks>
     /// <response code="200">Operation Successful</response>
     [HttpGet]

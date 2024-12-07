@@ -77,86 +77,32 @@ public class DayFourService : IDayFourService
     public async Task<int> PartTwoAsync()
     {
         await Task.CompletedTask;
+        var map = DayFourInput.input.Split("\r\n").ToList();
+        var rows = map.Count;
+        var cols = map.First().Length;
 
-        string input = @"MMMSXXMASM
-MSAMXMSMSA
-AMXSXMAAMM
-MSAMASMSMX
-XMASAMXAMM
-XXAMMXXAMA
-SMSMSASXSS
-SAXAMASAAA
-MAMMMXMMMM
-MXMXAXMASX";
+        string word = "MAS";
+        var count = 0;
 
+        var dirs = (from row in new[] { 0, 1, -1 }
+                    from col in new[] { 0, 1, -1 }
+                    select (row,col)
+                    ).ToList();
 
-        string[] lines = input.Replace("\r", "").Split("\n").ToArray();
-        //string[] lines = DayFourInput.input.Replace("\r", "").Split("\n").ToArray();
-
-        // Creiamo la griglia
-        char[,] grid = new char[lines.Length, lines[0].Length];
-        for (int i = 0; i < lines.Length; i++)
+        for (var row = 0; row < rows; row++)
         {
-            for (int j = 0; j < lines[i].Length; j++)
+            for (var col = 0; col < cols; col++)
             {
-                grid[i, j] = lines[i][j];
-            }
-        }
+                var masWord_1 = $"{FindWord(row - 1, col - 1,rows,cols,map)}{FindWord(row, col, rows, cols, map)}{FindWord(row + 1, col + 1, rows, cols, map)}";
+                var masWord_2 = $"{FindWord(row - 1, col + 1, rows, cols, map)}{FindWord(row, col, rows, cols, map)}{FindWord(row + 1, col - 1, rows, cols, map)}";
 
-        // Step 2: Definisci la parola da cercare
-        string wordMas = "MAS";
-        string wordSam = "SAM";
-
-        // Step 3: Conta tutte le occorrenze della parola nella griglia
-        int count = 0;
-
-        // Definizione delle direzioni: [deltaX, deltaY]
-        int[][] directionsASBD = new int[][]
-        {
-            new int[] { -1, -1 },   // Diagonale alto sinistra
-            new int[] { 1, 1 }    // Diagonale basso destra
-        };
-
-        int[][] directionsADBS = new int[][]
-        {
-            new int[] { -1, 1 },   // Diagonale alto destra
-            new int[] { 1, -1 }   // Diagonale basso sinistra
-        };
-
-        // Step 4: Scorriamo ogni cella della griglia
-        for (int i = 0; i < grid.GetLength(0); i++)
-        {
-
-            var checkMAS = false;
-            var checkSAM = false;
-
-            for (int j = 0; j < grid.GetLength(1); j++)
-            {
-                char carattere = grid[i,j];
-
-                if (carattere == 'A')
+                if (
+                    (masWord_1 == word || new string(masWord_1.Reverse().ToArray()) == word)
+                    &&
+                    (masWord_2 == word || new string(masWord_2.Reverse().ToArray()) == word)
+                )
                 {
-                    //Per ogni cella, verifica se possiamo trovare la parola in una delle 8 direzioni
-                    foreach (var direction in directionsASBD)
-                    {
-                        if (IsWordPresent(grid, i, j, wordMas, direction[0], direction[1]))
-                        {
-                            checkMAS = true;
-                        }
-                    }
-
-                    foreach (var direction in directionsADBS)
-                    {
-                        if (IsWordPresent(grid, i, j, wordMas, direction[0], direction[1]))
-                        {
-                            checkSAM = true;
-                        }
-                    }
-
-                    if (checkMAS && checkSAM)
-                    {
-                        count++;
-                    }
+                    count++;
                 }
             }
         }
@@ -189,6 +135,12 @@ MXMXAXMASX";
         }
 
         return true;
+    }
+
+    
+    static char FindWord(int row, int col, int rows, int cols, List<string> map)
+    {
+        return (row >= 0 && row < rows) && (col >= 0 && col < cols) ? map[row][col] : '.'; ;
     }
 
 }
