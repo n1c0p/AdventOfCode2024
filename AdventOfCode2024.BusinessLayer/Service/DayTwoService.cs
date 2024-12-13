@@ -135,7 +135,7 @@ public class DayTwoService : IDayTwoService
                     }
                     else
                     {
-                        currentReportTmp = new();
+                        currentReportTmp.Clear();
                         currentReportTmp.AddRange(currentReport);
                     }
                 }
